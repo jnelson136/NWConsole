@@ -12,8 +12,7 @@ namespace Northwind_Console.Model
             Products = new HashSet<Product>();
         }
 
-        [Required]
-        public int CategoryId { get; set; }
+        [Required(ErrorMessage = "YO - Enter the name!")] public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public string Description { get; set; }
 
