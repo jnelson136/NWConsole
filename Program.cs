@@ -1,6 +1,9 @@
 ﻿﻿using NLog;
 using System.Linq;
 using Northwind_Console.Model;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
 // See https://aka.ms/new-console-template for more information
 string path = Directory.GetCurrentDirectory() + "\\nlog.config";
 
@@ -32,6 +35,16 @@ try
                 Console.WriteLine($"{item.CategoryName} - {item.Description}");
             }
             Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        else if (choice == "2")
+        {
+            Category category = new Category();
+            Console.WriteLine("Enter Category Name:");
+            category.CategoryName = Console.ReadLine();
+            Console.WriteLine("Enter the Category Description:");
+            category.Description = Console.ReadLine();
+            // TODO: save category to db
         }
         Console.WriteLine();
 
