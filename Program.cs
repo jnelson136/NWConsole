@@ -1,6 +1,6 @@
 ﻿﻿using NLog;
 using System.Linq;
-
+using Northwind_Console.Model;
 // See https://aka.ms/new-console-template for more information
 string path = Directory.GetCurrentDirectory() + "\\nlog.config";
 
