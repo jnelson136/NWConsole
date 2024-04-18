@@ -44,14 +44,24 @@ try
             category.CategoryName = Console.ReadLine();
             Console.WriteLine("Enter the Category Description:");
             category.Description = Console.ReadLine();
-                        ValidationContext context = new ValidationContext(category, null, null);
+            ValidationContext context = new ValidationContext(category, null, null);
             List<ValidationResult> results = new List<ValidationResult>();
 
             var isValid = Validator.TryValidateObject(category, context, results, true);
             if (isValid)
             {
-                logger.Info("Validation passed");
-                // TODO: save category to db
+                // check for unique name
+                if (db.Categories.Any(c => c.CategoryName == category.CategoryName))
+                {
+                    // generate validation error
+                    isValid = false;
+                    results.Add(new ValidationResult("Name exists", new string[] { "CategoryName" }));
+                }
+                else
+                {
+                    logger.Info("Validation passed");
+                    // TODO: save category to db
+                }
             }
             if (!isValid)
             {
