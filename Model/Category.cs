@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace Northwind_Console.Model
 {
@@ -10,6 +12,7 @@ namespace Northwind_Console.Model
             Products = new HashSet<Product>();
         }
 
+        [Required]
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public string Description { get; set; }
