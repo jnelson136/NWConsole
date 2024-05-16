@@ -68,7 +68,8 @@ try
                 else
                 {
                     logger.Info("Validation passed");
-                    // TODO: save category to db
+                    db.Categories.Add(category);
+                    db.SaveChanges();
                 }
             }
             if (!isValid)
@@ -116,13 +117,86 @@ try
 
         else if (choice == "5")
         {
-            Console.WriteLine("TEST");
+            Product product = new Product();
 
+            Console.WriteLine("What is the Product Name?");
+            product.ProductName = Console.ReadLine();
+
+            Console.WriteLine("What is the Supplier ID?");
+            product.SupplierId = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("What is the Category ID?");
+            product.CategoryId = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("What is the Quantity Per Unit?");
+            product.QuantityPerUnit = Console.ReadLine();
+
+            Console.WriteLine("What is the Unit Price?");
+            product.UnitPrice = decimal.Parse(Console.ReadLine());
+
+            Console.WriteLine("How many Units In Stock?");
+            product.UnitsInStock = short.Parse(Console.ReadLine());
+
+            Console.WriteLine("How many Units On Order?");
+            product.UnitsOnOrder = short.Parse(Console.ReadLine());
+
+            Console.WriteLine("What is the Reorder Level?");
+            product.ReorderLevel = short.Parse(Console.ReadLine());
+
+            Console.WriteLine("Discontinued? (True/False)");
+            product.Discontinued = bool.Parse(Console.ReadLine());
+
+            db.Products.Add(product);
+            db.SaveChanges();
         }
 
         else if (choice == "6")
         {
-            Console.WriteLine("TEST");
+            var query = db.Products.OrderBy(p => p.ProductId);
+            foreach (var item in query)
+            {
+                Console.WriteLine($"{item.ProductId} - {item.ProductName}");
+            }
+
+            Console.WriteLine("Enter the product ID of the item you would like to edit");
+            int pId = int.Parse(Console.ReadLine());
+
+            var product = db.Products.FirstOrDefault(p => p.ProductId == pId);
+
+            Console.WriteLine("Enter new Product ID: ");
+            product.ProductId = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Enter new Product Name: ");
+            product.ProductName = Console.ReadLine();
+
+            Console.WriteLine("Enter new Supplier ID: ");
+            product.SupplierId = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Enter new Category ID: ");
+            product.CategoryId = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Enter new Quantity Per Unit: ");
+            product.QuantityPerUnit = Console.ReadLine();
+
+            Console.WriteLine("Enter new Unit Price: ");
+            product.UnitPrice = decimal.Parse(Console.ReadLine());
+
+            Console.WriteLine("Enter new Units in Stock: ");
+            product.UnitsInStock = short.Parse(Console.ReadLine());
+
+            Console.WriteLine("Enter new Units on Order: ");
+            product.UnitsOnOrder = short.Parse(Console.ReadLine());
+
+            Console.WriteLine("Enter new Reorder Level: ");
+            product.ReorderLevel = short.Parse(Console.ReadLine());
+
+            Console.WriteLine("Enter new Discontinued (True/False): ");
+            product.Discontinued = Boolean.Parse(Console.ReadLine());
+
+            db.SaveChanges();
+
+
+
         }
 
         else if (choice == "7")
@@ -158,6 +232,9 @@ try
                 Console.WriteLine($"Units On Order: {product.UnitsOnOrder}");
                 Console.WriteLine($"Reorder Level: {product.ReorderLevel}");
                 Console.WriteLine($"Discontinued: {product.Discontinued}");
+
+                Console.ForegroundColor = ConsoleColor.White;
+
             }
         }
 
@@ -168,5 +245,7 @@ try
 catch (Exception ex)
 {
     logger.Error(ex.Message);
+    Console.WriteLine(ex.InnerException.Message);
+
 }
 logger.Info("Program ended");
