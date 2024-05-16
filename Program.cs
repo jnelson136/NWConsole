@@ -22,9 +22,9 @@ try
         Console.WriteLine("2) Add Category");
         Console.WriteLine("3) Display Category and related products");
         Console.WriteLine("4) Display all Categories and their related products");
-        Console.WriteLine("5) EDIT");
-        Console.WriteLine("6) DELETE PRODUCT");
-        Console.WriteLine("7) DELETE CATEGORY");
+        Console.WriteLine("5) Add New Record to Products Table");
+        Console.WriteLine("6) Edit A Specified Record from the Products Table");
+        Console.WriteLine("7) Display A Specific Product");
 
 
         Console.WriteLine("\"q\" to quit");
@@ -113,6 +113,54 @@ try
                 }
             }
         }
+
+        else if (choice == "5")
+        {
+            Console.WriteLine("TEST");
+
+        }
+
+        else if (choice == "6")
+        {
+            Console.WriteLine("TEST");
+        }
+
+        else if (choice == "7")
+        {
+            var query = db.Products.OrderBy(p => p.ProductId);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"{query.Count()} records returned");
+
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            foreach (var item in query)
+            {
+                Console.WriteLine($"{item.ProductId} - {item.ProductName}");
+            }
+            Console.WriteLine("Select the number of the product you want more information on:");
+            Console.ForegroundColor = ConsoleColor.White;
+
+        }
+        if (int.TryParse(Console.ReadLine(), out int productId))
+        {
+            var product = db.Products.FirstOrDefault(p => p.ProductId == productId);
+            if (product != null)
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;
+
+                Console.WriteLine($"Product ID: {product.ProductId}");
+                Console.WriteLine($"Product Name: {product.ProductName}");
+                Console.WriteLine($"Supplier ID: {product.SupplierId}");
+                Console.WriteLine($"Category ID: {product.CategoryId}");
+                Console.WriteLine($"Quantity Per Unit: {product.QuantityPerUnit}");
+                Console.WriteLine($"Unit Price: {product.UnitPrice:C}");
+                Console.WriteLine($"Units In Stock: {product.UnitsInStock}");
+                Console.WriteLine($"Units On Order: {product.UnitsOnOrder}");
+                Console.WriteLine($"Reorder Level: {product.ReorderLevel}");
+                Console.WriteLine($"Discontinued: {product.Discontinued}");
+            }
+        }
+
         Console.WriteLine();
 
     } while (choice.ToLower() != "q");
