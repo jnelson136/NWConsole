@@ -22,6 +22,9 @@ try
         Console.WriteLine("2) Add Category");
         Console.WriteLine("3) Display Category and related products");
         Console.WriteLine("4) Display all Categories and their related products");
+        Console.WriteLine("5) EDIT");
+        Console.WriteLine("6) DELETE PRODUCT");
+        Console.WriteLine("7) DELETE CATEGORY");
 
 
         Console.WriteLine("\"q\" to quit");
